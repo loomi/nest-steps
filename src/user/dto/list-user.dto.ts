@@ -1,6 +1,11 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsOptional, IsString, IsUUID } from "class-validator";
 
 export class ListUserDto {
+  
+  @IsOptional()
+  @IsUUID()
+  id: string;
+
   @IsOptional()
   @IsString()
   email: string;
