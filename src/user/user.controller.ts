@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { ListUserDto   } from './dto/list-user.dto';
@@ -15,7 +15,7 @@ export class UserController {
   }
 
   @Get()
-  findAll(@Body() listUserDto: ListUserDto) {
+  findAll(@Query() listUserDto: ListUserDto) {
     return this.userService.findAll(listUserDto);
   }
 
