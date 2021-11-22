@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  api:
+    build: .
+    container_name: nestjs-leap
+    restart: always
+    command: npm run start:dev
+    env_file:
+      - .env
+    ports:
+      - '${API_PORT}:${API_PORT}'
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
