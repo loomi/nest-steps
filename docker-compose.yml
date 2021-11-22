@@ -2,7 +2,7 @@ version: '3.4'
 services:
   api:
     build: .
-    container_name: nestjs-leap
+    container_name: nestjs-leap-api
     restart: always
     command: npm run start:dev
     env_file:
@@ -12,3 +12,20 @@ services:
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:latest
+    container_name: nestjs-leap-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    ports:
+      - '${DATABASE_PORT}:5432'
