@@ -1,0 +1,15 @@
+node_modules/
+dist/
+__tests__/
+.github/
+.vscode/
+coverage/
+.husky/
+app/
+.eslintignore
+.eslintrc.json
+.gitignore
+.prettierignore
+.prettierrc.json
+jest-integration-config.js
+jest-unit-config.js
