@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { User } from "./entities/user.entity";
+import { User } from './entities/user.entity';
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto): Promise<void>  {
+  create(createUserDto: CreateUserDto): Promise<void> {
     throw Error('Not implemented yet');
   }
 

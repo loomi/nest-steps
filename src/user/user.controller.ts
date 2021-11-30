@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { GlobalResponseSwagger } from "@/src/decorators/swagger.decorator";
+import { GlobalResponseSwagger } from '@/src/decorators/swagger.decorator';
 
 import { UserService } from './user.service';
-import { ListUserDto   } from './dto/list-user.dto';
+import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -11,7 +20,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
+
   @Post()
   @GlobalResponseSwagger()
   @ApiOperation({ summary: 'create a new user' })
