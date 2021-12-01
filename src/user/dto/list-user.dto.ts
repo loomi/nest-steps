@@ -5,20 +5,20 @@ export class ListUserDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsUUID()
-  id: string;
+  id?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  email: string;
+  email?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  aboutMe: string;
+  aboutMe?: string;
 }

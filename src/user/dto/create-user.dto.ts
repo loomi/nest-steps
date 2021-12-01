@@ -24,5 +24,5 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => (typeof value === 'string' ? value?.trim() : value))
-  aboutMe: string;
+  aboutMe?: string;
 }
