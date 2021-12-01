@@ -44,7 +44,7 @@ const UserServiceSpy = {
 };
 
 describe('UserController', () => {
-  let controller: UserController;
+  let sut: UserController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -57,10 +57,31 @@ describe('UserController', () => {
       ],
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    sut = module.get<UserController>(UserController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('create user', () => {
+    it('should be defined', () => {
+      expect(sut.create).toBeDefined();
+    });
+  });
+
+  describe('find user', () => {
+    it('should be defined', () => {
+      expect(sut.findAll).toBeDefined();
+      expect(sut.findOne).toBeDefined();
+    });
+  });
+
+  describe('update user', () => {
+    it('should be defined', () => {
+      expect(sut.update).toBeDefined();
+    });
+  });
+
+  describe('delete user', () => {
+    it('should be defined', () => {
+      expect(sut.remove).toBeDefined();
+    });
   });
 });
