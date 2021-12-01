@@ -15,7 +15,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --passWithNoTests --noStackTrace --runInBand --no-cache",
-    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:verbose": "npm test -- --verbose",
     "test:unit": "npm test -- --watch --onlyChanged",
     "test:integration": "npm test -- --watch --verbose",
     "test:staged": "npm test -- --findRelatedTests",
