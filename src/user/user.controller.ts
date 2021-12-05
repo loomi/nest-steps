@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { GlobalResponseSwagger } from '@/src/decorators/swagger.decorator';
+import { GlobalResponseSwagger } from '@/src/shared/decorators/swagger.decorator';
 
 import { UserService } from './user.service';
 import { ListUserDto } from './dto/list-user.dto';
