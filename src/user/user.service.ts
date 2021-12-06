@@ -4,26 +4,31 @@ import { User } from './entities/user.entity';
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto): Promise<void> {
-    throw Error('Not implemented yet');
+  constructor(private readonly userRepository: UserRepository) {}
+
+  async create(createUserDto: CreateUserDto): Promise<void> {
+    return this.userRepository.create(createUserDto);
   }
 
-  findAll(listUserDto: ListUserDto): Promise<User[]> {
-    throw Error('Not implemented yet');
+  async findAll(listUserDto: ListUserDto): Promise<Omit<User, 'password'>[]> {
+    return this.userRepository.list(listUserDto);
   }
 
-  findOne(id: string): Promise<User> {
-    throw Error('Not implemented yet');
+  async findOne(id: string): Promise<Omit<User, 'password'>> {
+    const [user] = await this.userRepository.list({ id });
+    return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    throw Error('Not implemented yet');
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.userRepository.update(id, updateUserDto);
+    return user;
   }
 
-  remove(id: string): Promise<void> {
-    throw Error('Not implemented yet');
+  async remove(id: string): Promise<void> {
+    await this.userRepository.delete(id);
   }
 }
