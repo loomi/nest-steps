@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { RolesType } from '../entities/user.entity';
 export class CreateUserDto {
   @ApiProperty({ required: true })
   @IsEmail()
@@ -19,6 +25,15 @@ export class CreateUserDto {
   @IsString()
   @Transform(({ value }) => (typeof value === 'string' ? value?.trim() : value))
   name: string;
+
+  @ApiProperty({
+    required: true,
+    default: RolesType.COMMON,
+    enum: [RolesType],
+  })
+  @IsEnum(RolesType)
+  @Transform(({ value }) => (typeof value === 'string' ? value?.trim() : value))
+  role: RolesType;
 
   @ApiProperty({ required: false })
   @IsOptional()

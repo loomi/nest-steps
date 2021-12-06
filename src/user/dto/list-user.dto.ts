@@ -20,5 +20,10 @@ export class ListUserDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
+  role?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
   aboutMe?: string;
 }
