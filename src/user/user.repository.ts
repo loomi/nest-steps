@@ -24,7 +24,7 @@ export class UserRepository {
     }
   }
 
-  async list(listUserDto: ListUserDto): Promise<Omit<User, 'password'>[]> {
+  async list(listUserDto: ListUserDto): Promise<User[]> {
     try {
       const users = this.users.filter((user) => {
         if (

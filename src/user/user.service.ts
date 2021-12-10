@@ -15,12 +15,18 @@ export class UserService {
   }
 
   async findAll(listUserDto: ListUserDto): Promise<Omit<User, 'password'>[]> {
-    return this.userRepository.list(listUserDto);
+    const users = await this.userRepository.list(listUserDto);
+    const usersWithOutPassword = users.map((user) => {
+      const { password, ...restUser } = user;
+      return restUser;
+    });
+    return usersWithOutPassword;
   }
 
   async findOne(id: string): Promise<Omit<User, 'password'>> {
     const [user] = await this.userRepository.list({ id });
-    return user;
+    const { password, ...userWithOutPassword } = user;
+    return userWithOutPassword;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
