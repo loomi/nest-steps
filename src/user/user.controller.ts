@@ -9,7 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+
 import { GlobalResponseSwagger } from '@/src/shared/decorators/swagger.decorator';
+import { GlobalAuthorization } from '@/src/shared/decorators/auth.decorator';
 
 import { UserService } from './user.service';
 import { ListUserDto } from './dto/list-user.dto';
@@ -30,6 +32,7 @@ export class UserController {
 
   @Get()
   @GlobalResponseSwagger()
+  @GlobalAuthorization()
   @ApiOperation({ summary: 'get users by filter,or users' })
   findAll(@Query() listUserDto: ListUserDto) {
     return this.userService.findAll(listUserDto);
@@ -50,6 +53,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @GlobalAuthorization()
   @GlobalResponseSwagger()
   @ApiOperation({ summary: 'remove user by id' })
   remove(@Param('id') id: string) {
