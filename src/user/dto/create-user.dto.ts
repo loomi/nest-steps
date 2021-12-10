@@ -28,8 +28,8 @@ export class CreateUserDto {
 
   @ApiProperty({
     required: true,
-    default: RolesType.COMMON,
-    enum: [RolesType],
+    default: RolesType[RolesType.COMMON],
+    enum: Object.keys(RolesType).filter((role) => isNaN(Number(role))),
   })
   @IsEnum(RolesType)
   @Transform(({ value }) => (typeof value === 'string' ? value?.trim() : value))
