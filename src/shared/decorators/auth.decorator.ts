@@ -4,9 +4,9 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '../guards/auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
 
-import { RolesType } from '../../user/entities/user.entity';
+import { RoleType } from '../../user/entities/user.entity';
 
-export function GlobalAuthorization(...roles: RolesType[]) {
+export function GlobalAuthorization(...roles: RoleType[]) {
   return applyDecorators(
     ApiBearerAuth(),
     SetMetadata('roles', roles),

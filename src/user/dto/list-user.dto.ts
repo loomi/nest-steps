@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 
-import { RolesType } from '../entities/user.entity';
+import { RoleType, roleTypeArray } from '../entities/user.entity';
 
 export class ListUserDto {
   @ApiProperty({ required: false })
@@ -21,10 +21,10 @@ export class ListUserDto {
 
   @ApiProperty({
     required: false,
-    default: RolesType[RolesType.COMMON],
-    enum: Object.keys(RolesType).filter((role) => isNaN(Number(role))),
+    default: roleTypeArray[0],
+    enum: roleTypeArray,
   })
-  role?: RolesType;
+  role?: RoleType;
 
   @ApiProperty({ required: false })
   @IsOptional()

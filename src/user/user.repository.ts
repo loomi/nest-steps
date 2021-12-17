@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
-import { User, RolesType } from './entities/user.entity';
+import { User, roleTypeArray } from './entities/user.entity';
 
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -30,8 +30,7 @@ export class UserRepository {
         if (
           (!listUserDto.id || user.id === listUserDto.id) &&
           (!listUserDto.email || user.email === listUserDto.email) &&
-          (!listUserDto.role ||
-            Object.values(RolesType).includes(listUserDto.role)) &&
+          (!listUserDto.role || roleTypeArray.includes(listUserDto.role)) &&
           (!listUserDto.aboutMe ||
             user.aboutMe.includes(listUserDto.aboutMe)) &&
           (!listUserDto.name || user.name.includes(listUserDto.name))
