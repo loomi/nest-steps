@@ -3,11 +3,12 @@ import { Transform } from 'class-transformer';
 import {
   IsEmail,
   IsEnum,
+  IsIn,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
-import { RolesType } from '../entities/user.entity';
+import { RoleType, roleTypeArray } from '../entities/user.entity';
 export class CreateUserDto {
   @ApiProperty({ required: true })
   @IsEmail()
@@ -28,12 +29,12 @@ export class CreateUserDto {
 
   @ApiProperty({
     required: true,
-    default: RolesType[RolesType.COMMON],
-    enum: Object.keys(RolesType).filter((role) => isNaN(Number(role))),
+    default: roleTypeArray[0],
+    enum: roleTypeArray,
   })
-  @IsEnum(RolesType)
+  @IsIn(roleTypeArray)
   @Transform(({ value }) => (typeof value === 'string' ? value?.trim() : value))
-  role: RolesType;
+  role: RoleType;
 
   @ApiProperty({ required: false })
   @IsOptional()
