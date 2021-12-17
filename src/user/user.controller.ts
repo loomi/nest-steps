@@ -31,26 +31,28 @@ export class UserController {
   }
 
   @Get()
-  @GlobalAuthorization()
+  @GlobalAuthorization('COMMON', 'ADMIN')
   @ApiOperation({ summary: 'get users by filter,or users' })
   findAll(@Query() listUserDto: ListUserDto) {
     return this.userService.findAll(listUserDto);
   }
 
   @Get(':id')
+  @GlobalAuthorization('COMMON', 'ADMIN')
   @ApiOperation({ summary: 'get user by id' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch(':id')
+  @GlobalAuthorization('COMMON', 'ADMIN')
   @ApiOperation({ summary: 'update user by id' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  @GlobalAuthorization()
+  @GlobalAuthorization('COMMON', 'ADMIN')
   @ApiOperation({ summary: 'remove user by id' })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
