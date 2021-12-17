@@ -20,18 +20,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
+@GlobalResponseSwagger()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @GlobalResponseSwagger()
   @ApiOperation({ summary: 'create a new user' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  @GlobalResponseSwagger()
   @GlobalAuthorization()
   @ApiOperation({ summary: 'get users by filter,or users' })
   findAll(@Query() listUserDto: ListUserDto) {
@@ -39,14 +38,12 @@ export class UserController {
   }
 
   @Get(':id')
-  @GlobalResponseSwagger()
   @ApiOperation({ summary: 'get user by id' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch(':id')
-  @GlobalResponseSwagger()
   @ApiOperation({ summary: 'update user by id' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
@@ -54,7 +51,6 @@ export class UserController {
 
   @Delete(':id')
   @GlobalAuthorization()
-  @GlobalResponseSwagger()
   @ApiOperation({ summary: 'remove user by id' })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
