@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
-import { User, roleTypeArray } from './entities/user.entity';
+import { UserInfo, roleTypeArray } from './entities/user-info.entity';
 
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,13 +9,16 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RepositoryException } from '../shared/errors/repository.exception';
 
 @Injectable()
-export class UserRepository {
-  private users: User[] = [];
+export class UserInfoRepository {
+  private users: UserInfo[] = [];
 
-  async create(createUserDto: CreateUserDto): Promise<void> {
+  async create(
+    createUserDto: Omit<CreateUserDto, 'email' | 'password'> & {
+      userId: string;
+    },
+  ): Promise<void> {
     try {
       this.users.push({
-        id: uuid(),
         ...createUserDto,
       });
     } catch (error) {
@@ -24,12 +27,13 @@ export class UserRepository {
     }
   }
 
-  async list(listUserDto: ListUserDto): Promise<User[]> {
+  async list(
+    listUserDto: Omit<ListUserDto, 'email' | 'password'>,
+  ): Promise<UserInfo[]> {
     try {
       const users = this.users.filter((user) => {
         if (
-          (!listUserDto.id || user.id === listUserDto.id) &&
-          (!listUserDto.email || user.email === listUserDto.email) &&
+          (!listUserDto.id || user.userId === listUserDto.id) &&
           (!listUserDto.role || roleTypeArray.includes(listUserDto.role)) &&
           (!listUserDto.aboutMe ||
             user.aboutMe.includes(listUserDto.aboutMe)) &&
@@ -45,16 +49,17 @@ export class UserRepository {
     }
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(
+    id: string,
+    updateUserDto: Omit<UpdateUserDto, 'email' | 'password'>,
+  ): Promise<UserInfo> {
     try {
-      const userIndex = this.users.findIndex((user) => user.id === id);
+      const userIndex = this.users.findIndex((user) => user.userId === id);
       if (userIndex >= 0) {
         if (updateUserDto.name) this.users[userIndex].name = updateUserDto.name;
         if (updateUserDto.role) this.users[userIndex].role = updateUserDto.role;
         if (updateUserDto.aboutMe)
           this.users[userIndex].aboutMe = updateUserDto.aboutMe;
-        if (updateUserDto.password)
-          this.users[userIndex].password = updateUserDto.password;
       }
 
       return this.users[userIndex];
@@ -65,7 +70,7 @@ export class UserRepository {
 
   async delete(id: string): Promise<void> {
     try {
-      const userIndex = this.users.findIndex((user) => user.id === id);
+      const userIndex = this.users.findIndex((user) => user.userId === id);
       if (userIndex >= 0) {
         this.users.splice(userIndex, 1);
       }

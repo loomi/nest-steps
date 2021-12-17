@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 
-import { RoleType, roleTypeArray } from '../entities/user.entity';
+import { RoleType, roleTypeArray } from '../entities/user-info.entity';
 
 export class ListUserDto {
   @ApiProperty({ required: false })
