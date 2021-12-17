@@ -19,12 +19,13 @@ export class UserRepository {
         ...createUserDto,
       });
     } catch (error) {
-      console.log(error);
-      throw new RepositoryException('User', 'unable to create user');
+      throw new RepositoryException('User', 'Unable to create user.');
     }
   }
 
-  async list(listUserDto: ListUserDto): Promise<User[]> {
+  async list(
+    listUserDto: { password?: string } & ListUserDto,
+  ): Promise<User[]> {
     try {
       const users = this.users.filter((user) => {
         if (
@@ -41,7 +42,7 @@ export class UserRepository {
       });
       return users;
     } catch (error) {
-      throw new RepositoryException('User', 'unable to find user');
+      throw new RepositoryException('User', 'Unable to find user.');
     }
   }
 
@@ -59,7 +60,7 @@ export class UserRepository {
 
       return this.users[userIndex];
     } catch (error) {
-      throw new RepositoryException('User', 'unable to update user');
+      throw new RepositoryException('User', 'Unable to update user.');
     }
   }
 
@@ -70,7 +71,7 @@ export class UserRepository {
         this.users.splice(userIndex, 1);
       }
     } catch (error) {
-      throw new RepositoryException('User', 'unable to delete user');
+      throw new RepositoryException('User', 'Unable to delete user.');
     }
   }
 }
