@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
   Query,
+  UsePipes,
+  ValidationPipe,
+  createParamDecorator,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -17,6 +20,13 @@ import { UserService } from './user.service';
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+const QueryValidation = createParamDecorator((data, req) => {
+  const result = new ListUserDto();
+  result.count =
+    req.args[0].query.count?.toLowerCase() === 'true' ? true : false;
+  return result;
+});
 
 @ApiTags('Users')
 @Controller('users')
@@ -33,7 +43,8 @@ export class UserController {
   @Get()
   @GlobalAuthorization()
   @ApiOperation({ summary: 'get users by filter,or users' })
-  findAll(@Query() listUserDto: ListUserDto) {
+  @UsePipes(new ValidationPipe({ transform: true }))
+  findAll(@QueryValidation() listUserDto: ListUserDto) {
     return this.userService.findAll(listUserDto);
   }
 
