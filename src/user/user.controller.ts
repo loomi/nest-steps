@@ -21,13 +21,6 @@ import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-const QueryValidation = createParamDecorator((data, req) => {
-  const result = new ListUserDto();
-  result.count =
-    req.args[0].query.count?.toLowerCase() === 'true' ? true : false;
-  return result;
-});
-
 @ApiTags('Users')
 @Controller('users')
 @GlobalResponseSwagger()
@@ -43,8 +36,7 @@ export class UserController {
   @Get()
   @GlobalAuthorization()
   @ApiOperation({ summary: 'get users by filter,or users' })
-  @UsePipes(new ValidationPipe({ transform: true }))
-  findAll(@QueryValidation() listUserDto: ListUserDto) {
+  findAll(@Query() listUserDto: ListUserDto) {
     return this.userService.findAll(listUserDto);
   }
 
