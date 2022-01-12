@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator';
 
 import { RoleType, roleTypeArray } from '../entities/user.entity';
 
@@ -18,6 +19,12 @@ export class ListUserDto {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Transform(({ value }) => (value === 'true' ? true : false))
+  @IsBoolean()
+  count?: boolean;
 
   @ApiProperty({
     required: false,
