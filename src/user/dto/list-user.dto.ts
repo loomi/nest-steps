@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBooleanString, IsOptional, IsString, IsUUID } from 'class-validator';
 
 import { RoleType, roleTypeArray } from '../entities/user.entity';
 
@@ -21,7 +21,7 @@ export class ListUserDto {
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsBoolean()
+  @IsBooleanString()
   count?: boolean;
 
   @ApiProperty({
