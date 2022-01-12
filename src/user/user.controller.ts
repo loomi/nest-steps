@@ -7,9 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  UsePipes,
-  ValidationPipe,
-  createParamDecorator,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
