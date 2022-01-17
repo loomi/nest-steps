@@ -14,13 +14,25 @@ export class UserService {
     return this.userRepository.create(createUserDto);
   }
 
-  async findAll(listUserDto: ListUserDto): Promise<Omit<User, 'password'>[]> {
+  async findAll(
+    listUserDto: ListUserDto,
+  ): Promise<number | Omit<User, 'password'>[]> {
     const users = await this.userRepository.list(listUserDto);
+
     const usersWithOutPassword = users.map((user) => {
       const { password, ...restUser } = user;
       return restUser;
     });
-    return usersWithOutPassword;
+    if (listUserDto.count === true) {
+      return usersWithOutPassword.length;
+    }
+
+    const result = Object.assign({
+      totalItems: usersWithOutPassword.length,
+      items: usersWithOutPassword,
+    });
+
+    return result;
   }
 
   async findOne(id: string): Promise<Omit<User, 'password'>> {
