@@ -1,0 +1,26 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRoleType {
+  ADMIN
+  COMMON
+}
+
+model User {
+  id          String       @id @default(uuid()) @db.Uuid
+  email       String
+  password    String
+  name        String
+  role        UserRoleType 
+  aboutMe     String?      @map("about_me")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("user")
+}

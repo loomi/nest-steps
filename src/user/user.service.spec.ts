@@ -11,12 +11,11 @@ import { UserService } from './user.service';
 
 const UserRepositorySpy = {
   create: jest.fn().mockReturnValue(Promise.resolve()),
-  findAll: jest
+  list: jest
     .fn()
     .mockReturnValue(
       Promise.resolve([mockCreateUserResult(), mockCreateUserResult()]),
     ),
-  findOne: jest.fn().mockReturnValue(Promise.resolve(mockCreateUserResult())),
   update: jest.fn().mockReturnValue(Promise.resolve(mockCreateUserResult())),
   remove: jest.fn().mockReturnValue(Promise.resolve()),
 };
